@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "304585257729",
+    "firebase_url": "https://retribusiapp.firebaseio.com",
+    "project_id": "retribusiapp",
+    "storage_bucket": "retribusiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304585257729:android:bc5d726372510ee9906100",
+        "android_client_info": {
+          "package_name": "com.munifahsan.retribusiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304585257729-aotdpmfdfmubsr2ugk30vefv8v862m2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYKus9bszssjEOb2h3OA3YlpvrS8tz8ng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304585257729-aotdpmfdfmubsr2ugk30vefv8v862m2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
