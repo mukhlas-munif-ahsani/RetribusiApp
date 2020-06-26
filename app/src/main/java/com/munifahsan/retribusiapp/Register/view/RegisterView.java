@@ -2,8 +2,10 @@ package com.munifahsan.retribusiapp.Register.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -11,8 +13,12 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.munifahsan.retribusiapp.MainActivity;
 import com.munifahsan.retribusiapp.R;
+import com.munifahsan.retribusiapp.Register.presenter.RegisterPress;
+import com.munifahsan.retribusiapp.Register.presenter.RegisterPressInt;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,8 +34,12 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     private TextInputEditText confirmPass;
     private Button register;
 
+    @BindView(R.id.emailTxt)
+    TextInputEditText email;
     @BindView(R.id.namaTextInputLayout)
     TextInputLayout namaLay;
+    @BindView(R.id.emailTextInputLayout)
+    TextInputLayout emailLay;
     @BindView(R.id.alamatTextInputLayout)
     TextInputLayout alamatLay;
     @BindView(R.id.nohpTextInputLayout)
@@ -41,11 +51,15 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     @BindView(R.id.confirmTextInputLayout)
     TextInputLayout confirmLay;
 
+    private RegisterPressInt registerPressInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        registerPressInt = new RegisterPress(this);
+        registerPressInt.onCreate();
 
         ButterKnife.bind(this);
 
@@ -56,6 +70,23 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
         level = findViewById(R.id.levelTxt);
         pass = findViewById(R.id.passTxt);
         confirmPass = findViewById(R.id.confirmPassTxt);
+
+        String[] levelItems = new String[]{
+                "PETUGAS",
+                "PEDAGANG"
+        };
+
+        ArrayAdapter<String> levelAdapter = new ArrayAdapter<>(
+                RegisterView.this, R.layout.dropdown_level, levelItems
+        );
+
+        level.setAdapter(levelAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        registerPressInt.onDestroy();
+        super.onDestroy();
     }
 
     @Override
@@ -76,6 +107,11 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     @Override
     public void setNamaError(String nama) {
         namaLay.setError(nama);
+    }
+
+    @Override
+    public void setEmailError(String emailError) {
+        emailLay.setError(emailError);
     }
 
     @Override
@@ -115,19 +151,23 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
 
     @Override
     public void sendToMainAct() {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.registerBtn)
     public void Onclick() {
 
         String nama = this.nama.getText().toString();
+        String email = this.email.getText().toString();
         String alamat  = this.alamat.getText().toString();
         String nohp = this.nohp.getText().toString();
         String level = this.level.getText().toString();
         String pass = this.pass.getText().toString();
         String confirm = confirmPass.getText().toString();
 
-
+        if (registerPressInt.isValidForm(nama, email, alamat, nohp, level, pass, confirm)){
+            registerPressInt.validateRegister(nama, email, alamat, nohp, level, pass);
+        }
     }
 }

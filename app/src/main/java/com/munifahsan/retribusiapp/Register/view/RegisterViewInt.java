@@ -5,6 +5,7 @@ public interface RegisterViewInt {
     void hideProgress();
     void showMessage(String msg);
     void setNamaError(String nama);
+    void setEmailError(String emailError);
     void setAlamatError(String alamat);
     void setNohpError(String nohp);
     void setLevelError(String level);
