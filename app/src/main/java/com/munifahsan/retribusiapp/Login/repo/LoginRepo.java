@@ -1,4 +1,4 @@
 package com.munifahsan.retribusiapp.Login.repo;
 
-public class LoginRepo {
+public class LoginRepo implements LoginRepoInt{
 }

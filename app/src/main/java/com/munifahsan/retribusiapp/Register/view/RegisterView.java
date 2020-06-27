@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.munifahsan.retribusiapp.Login.view.LoginView;
 import com.munifahsan.retribusiapp.MainActivity;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.Register.presenter.RegisterPress;
@@ -50,6 +51,9 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     TextInputLayout passLay;
     @BindView(R.id.confirmTextInputLayout)
     TextInputLayout confirmLay;
+
+    @BindView(R.id.register_login)
+    Button regLogin;
 
     private RegisterPressInt registerPressInt;
 
@@ -156,7 +160,7 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     }
 
     @OnClick(R.id.registerBtn)
-    public void Onclick() {
+    public void regOnclick() {
 
         String nama = this.nama.getText().toString();
         String email = this.email.getText().toString();
@@ -169,5 +173,11 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
         if (registerPressInt.isValidForm(nama, email, alamat, nohp, level, pass, confirm)){
             registerPressInt.validateRegister(nama, email, alamat, nohp, level, pass);
         }
+    }
+
+    @OnClick(R.id.register_login)
+    public void regLogOnClick(){
+        Intent intent = new Intent(this, LoginView.class);
+        startActivity(intent);
     }
 }

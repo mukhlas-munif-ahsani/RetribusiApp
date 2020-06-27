@@ -1,4 +1,6 @@
 package com.munifahsan.retribusiapp.Login.presenter;
 
-public interface LoginPresInt {
+import com.munifahsan.retribusiapp.BasePressInt;
+
+public interface LoginPresInt extends BasePressInt {
 }

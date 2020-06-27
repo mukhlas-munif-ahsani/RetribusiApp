@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="REGISTER"
+                android:text="DAFTAR"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
@@ -103,6 +103,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailTxt"
                     android:layout_width="match_parent"
+                    android:inputType="textEmailAddress"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
@@ -157,6 +158,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:inputType="number"
                     android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -210,6 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:inputType="textPassword"
                     android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -236,6 +239,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:inputType="textPassword"
                     android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -247,7 +251,18 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="24dp"
-                android:text="REGISTER" />
+                android:text="DAFTAR" />
+
+            <Button
+                android:id="@+id/register_login"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:text="Sudah memliki akun"
+                android:textColor="@color/blue_500"
+                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
 
