@@ -53,7 +53,6 @@ public class LoginRepo implements LoginRepoInt {
                                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                                         String token_id = task.getResult().getToken();
 
-
                                         Map<String, Object> tokenMap = new HashMap<>();
                                         tokenMap.put("token_id", token_id);
 
@@ -63,6 +62,7 @@ public class LoginRepo implements LoginRepoInt {
                                                 postEvent(LoginEvent.onLoginSuccess, null, level);
                                             }
                                         });
+
                                     }
                                 });
                             }

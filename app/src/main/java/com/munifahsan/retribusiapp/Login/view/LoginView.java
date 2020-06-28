@@ -13,9 +13,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.munifahsan.retribusiapp.Login.presenter.LoginPres;
 import com.munifahsan.retribusiapp.Login.presenter.LoginPresInt;
-import com.munifahsan.retribusiapp.MainActivity;
-import com.munifahsan.retribusiapp.MainPedagang;
-import com.munifahsan.retribusiapp.MainPetugas;
+import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
+import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.Register.view.RegisterView;
 

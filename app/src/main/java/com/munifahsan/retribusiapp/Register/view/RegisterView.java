@@ -14,11 +14,11 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.munifahsan.retribusiapp.Login.view.LoginView;
-import com.munifahsan.retribusiapp.MainPedagang;
-import com.munifahsan.retribusiapp.MainPetugas;
+import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
+import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.Register.presenter.RegisterPress;
-import com.munifahsan.retribusiapp.Register.presenter.RegisterPressInt;
+import com.munifahsan.retribusiapp.Register.presenter.RegisterPres;
+import com.munifahsan.retribusiapp.Register.presenter.RegisterPresInt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,14 +55,14 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     @BindView(R.id.register_login)
     Button regLogin;
 
-    private RegisterPressInt registerPressInt;
+    private RegisterPresInt registerPressInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        registerPressInt = new RegisterPress(this);
+        registerPressInt = new RegisterPres(this);
         registerPressInt.onCreate();
 
         ButterKnife.bind(this);

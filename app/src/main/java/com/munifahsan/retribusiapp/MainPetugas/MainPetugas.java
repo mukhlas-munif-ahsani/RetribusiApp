@@ -1,0 +1,71 @@
+package com.munifahsan.retribusiapp.MainPetugas;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.munifahsan.retribusiapp.History.HistoryFragment;
+import com.munifahsan.retribusiapp.HomePetugas.HomePetugasFragment;
+import com.munifahsan.retribusiapp.Profile.view.ProfileFragment;
+import com.munifahsan.retribusiapp.R;
+import com.munifahsan.retribusiapp.Transfer.TransferFragment;
+
+public class MainPetugas extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_petugas);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.petugas_tab);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        getFragmentPage(new HomePetugasFragment());
+    }
+
+    private boolean getFragmentPage(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fl_petugas_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        switch (item.getItemId()){
+            case R.id.navigation_home:
+                fragment = new HomePetugasFragment();
+                break;
+            case R.id.navigation_transfer:
+                fragment = new TransferFragment();
+                break;
+            case R.id.navigation_history:
+                fragment = new HistoryFragment();
+                break;
+            case R.id.navigation_profile:
+                fragment = new ProfileFragment();
+                break;
+
+        }
+        return loadFragment(fragment);
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fl_petugas_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+}

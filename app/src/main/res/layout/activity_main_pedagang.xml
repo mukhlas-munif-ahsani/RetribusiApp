@@ -5,13 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainPedagang">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PEDAGANG"/>
+    tools:context=".MainPedagang.MainPedagang">
+
     <FrameLayout
-        android:id="@+id/fl_container"
+        android:id="@+id/fl_pedagang_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp" />
@@ -23,12 +20,12 @@
         android:background="@color/grey_300"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnb_tab"
+        android:id="@+id/pedagang_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/grey_50"
         app:itemIconTint="@drawable/state_bnve"
         app:itemTextColor="@drawable/state_bnve"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation_pedagang" />
 </RelativeLayout>

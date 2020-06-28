@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
+import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

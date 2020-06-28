@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainPetugas"></activity>
-        <activity android:name=".MainPedagang" />
+        <activity android:name=".MainPetugas.MainPetugas"></activity>
+        <activity android:name=".MainPedagang.MainPedagang" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

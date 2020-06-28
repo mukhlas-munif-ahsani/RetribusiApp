@@ -15,13 +15,13 @@ import java.util.regex.Pattern;
 import static com.munifahsan.retribusiapp.Register.RegisterEvent.onSignUpError;
 import static com.munifahsan.retribusiapp.Register.RegisterEvent.onSignUpSuccess;
 
-public class RegisterPress implements RegisterPressInt {
+public class RegisterPres implements RegisterPresInt {
 
     private RegisterViewInt registerViewInt;
     private EventBus eventBus;
     private RegisterRepoInt registerRepoInt;
 
-    public RegisterPress(RegisterViewInt registerViewInt){
+    public RegisterPres(RegisterViewInt registerViewInt){
         this.registerViewInt = registerViewInt;
         registerRepoInt = new RegisterRepo();
         eventBus = GreenRobotEventBus.getInstance();
