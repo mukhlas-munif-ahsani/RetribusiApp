@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.munifahsan.retribusiapp.Login.view.LoginView;
 import com.munifahsan.retribusiapp.Register.view.RegisterView;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -37,9 +38,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser == null) {
-            senToRegister();
+            sendToLogin();
         }
-//        else {
+        else {
+            sendToMain();
 //
 //            current_user_id = mAuth.getCurrentUser().getUid();
 //
@@ -70,7 +72,19 @@ public class SplashScreenActivity extends AppCompatActivity {
 //                }
 //            });
 //
-//        }
+        }
+    }
+
+    private void sendToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void sendToLogin() {
+        Intent intent = new Intent(this, LoginView.class);
+        startActivity(intent);
+        finish();
     }
 
     private void senToRegister() {

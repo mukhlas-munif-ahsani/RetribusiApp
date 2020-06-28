@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.munifahsan.retribusiapp.Login.presenter.LoginPres;
+import com.munifahsan.retribusiapp.Login.presenter.LoginPresInt;
 import com.munifahsan.retribusiapp.MainActivity;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.Register.view.RegisterView;
@@ -21,7 +23,7 @@ import butterknife.OnClick;
 
 public class LoginView extends AppCompatActivity implements LoginViewInt{
 
-    private LoginViewInt loginViewInt;
+    private LoginPresInt loginPresInt;
 
     @BindView(R.id.loginProgress)
     ProgressBar loginProgress;
@@ -47,7 +49,15 @@ public class LoginView extends AppCompatActivity implements LoginViewInt{
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
+        loginPresInt = new LoginPres(this);
+        loginPresInt.onCreate();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresInt.onDestroy();
     }
 
     @Override
@@ -80,7 +90,9 @@ public class LoginView extends AppCompatActivity implements LoginViewInt{
         String email = this.email.getText().toString();
         String pass = this.pass.getText().toString();
 
-
+        if (loginPresInt.isValidForm(email, pass)){
+            loginPresInt.validateLogin(email, pass);
+        }
     }
 
     @Override
@@ -94,5 +106,11 @@ public class LoginView extends AppCompatActivity implements LoginViewInt{
     public void navigateToRegister() {
         Intent intent = new Intent(this, RegisterView.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void setInputs(boolean enabeled) {
+        email.setEnabled(enabeled);
+        pass.setEnabled(enabeled);
     }
 }

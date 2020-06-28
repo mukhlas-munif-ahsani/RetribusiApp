@@ -9,4 +9,5 @@ public interface LoginViewInt {
     void setPassError(String passError);
     void navigateToMain();
     void navigateToRegister();
+    void setInputs(boolean enabeled);
 }

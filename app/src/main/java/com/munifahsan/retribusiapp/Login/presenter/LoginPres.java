@@ -45,13 +45,13 @@ public class LoginPres implements LoginPresInt{
                 onLoginSuccess();
                 break;
             case onLoginError:
-                onLoginError();
+                onLoginError(event.getErrorMessage());
                 break;
         }
     }
 
-    private void onLoginError() {
-
+    private void onLoginError(String error) {
+        loginViewInt.showMessage(error);
     }
 
     private void onLoginSuccess() {
@@ -79,6 +79,9 @@ public class LoginPres implements LoginPresInt{
 
     public void validateLogin(String email, String pass){
         loginViewInt.showProgress();
+        loginViewInt.setInputs(false);
+
+        loginRepoInt.Login(email, pass);
     }
 
     public static boolean isEmailValid(String email) {
