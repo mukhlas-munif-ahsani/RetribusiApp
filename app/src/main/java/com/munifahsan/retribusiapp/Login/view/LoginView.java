@@ -14,6 +14,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.munifahsan.retribusiapp.Login.presenter.LoginPres;
 import com.munifahsan.retribusiapp.Login.presenter.LoginPresInt;
 import com.munifahsan.retribusiapp.MainActivity;
+import com.munifahsan.retribusiapp.MainPedagang;
+import com.munifahsan.retribusiapp.MainPetugas;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.Register.view.RegisterView;
 
@@ -96,9 +98,17 @@ public class LoginView extends AppCompatActivity implements LoginViewInt{
     }
 
     @Override
-    public void navigateToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+    public void navigateToPedagang() {
+        Intent intent = new Intent(this, MainPedagang.class);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void navigateToPetugas() {
+        Intent intent = new Intent(this, MainPetugas.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

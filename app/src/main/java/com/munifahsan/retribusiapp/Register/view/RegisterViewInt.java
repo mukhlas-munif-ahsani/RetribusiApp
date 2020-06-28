@@ -12,6 +12,7 @@ public interface RegisterViewInt {
     void setPassError(String passError);
     void setConfirmError(String confirmError);
     void setInputsEnabled(Boolean enabled);
-    void sendToMainAct();
+    void navigateToPedagang();
+    void navigateToPetugas();
 
 }

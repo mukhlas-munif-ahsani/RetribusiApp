@@ -6,6 +6,15 @@ public class RegisterEvent {
 
     private int eventType;
     private String errorMessage;
+    private String level;
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public int getEventType() {
         return eventType;

@@ -63,10 +63,10 @@ public class RegisterRepo implements RegisterRepoInt {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            postEvent(RegisterEvent.onSignUpSuccess);
+                            postEvent(RegisterEvent.onSignUpSuccess, null, level);
                         } else {
                             String error = task.getException().getMessage();
-                            postEvent(RegisterEvent.onSignUpError, error);
+                            postEvent(RegisterEvent.onSignUpError, error, null);
                         }
                     }
                 });
@@ -74,10 +74,14 @@ public class RegisterRepo implements RegisterRepoInt {
         });
     }
 
-    public void postEvent(int type, String errorMessage){
+    public void postEvent(int type, String errorMessage, String level){
         RegisterEvent event = new RegisterEvent();
 
         event.setEventType(type);
+
+        if (level != null){
+            event.setLevel(level);
+        }
 
         if (errorMessage != null){
             event.setErrorMessage(errorMessage);
@@ -88,7 +92,11 @@ public class RegisterRepo implements RegisterRepoInt {
     }
 
     private void postEvent(int type) {
-        postEvent(type, null);
+        postEvent(type, null, null);
+    }
+
+    private void postEvent(int type, String level) {
+        postEvent(type, null, level);
     }
 
 }

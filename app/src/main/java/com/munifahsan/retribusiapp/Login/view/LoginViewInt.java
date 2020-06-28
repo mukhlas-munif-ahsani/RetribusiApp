@@ -7,7 +7,8 @@ public interface LoginViewInt {
     void hideProgress();
     void setEmailError(String emailError);
     void setPassError(String passError);
-    void navigateToMain();
+    void navigateToPedagang();
+    void navigateToPetugas();
     void navigateToRegister();
     void setInputs(boolean enabeled);
 }

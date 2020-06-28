@@ -42,7 +42,7 @@ public class RegisterPress implements RegisterPressInt {
     public void onEventMainThread(RegisterEvent event){
         switch (event.getEventType()){
             case onSignUpSuccess:
-                onSignUpSuccess();
+                onSignUpSuccess(event.getLevel());
                 break;
             case onSignUpError:
                 onSignUpError();
@@ -54,9 +54,15 @@ public class RegisterPress implements RegisterPressInt {
 
     }
 
-    private void onSignUpSuccess() {
-        registerViewInt.sendToMainAct();
-    }
+    private void onSignUpSuccess(String level) {
+
+        if (level.equals("PEDAGANG")){
+            registerViewInt.navigateToPedagang();
+        }
+
+        if (level.equals("PETUGAS")){
+            registerViewInt.navigateToPetugas();
+        }    }
 
     public boolean isValidForm(String nama, String email, String alamat, String nohp, String level, String pass, String confirm){
         boolean isValid = true;

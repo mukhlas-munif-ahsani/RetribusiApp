@@ -14,12 +14,12 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.munifahsan.retribusiapp.Login.view.LoginView;
-import com.munifahsan.retribusiapp.MainActivity;
+import com.munifahsan.retribusiapp.MainPedagang;
+import com.munifahsan.retribusiapp.MainPetugas;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.Register.presenter.RegisterPress;
 import com.munifahsan.retribusiapp.Register.presenter.RegisterPressInt;
 
-import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -154,9 +154,17 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     }
 
     @Override
-    public void sendToMainAct() {
-        Intent intent = new Intent(this, MainActivity.class);
+    public void navigateToPedagang() {
+        Intent intent = new Intent(this, MainPedagang.class);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void navigateToPetugas() {
+        Intent intent = new Intent(this, MainPetugas.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.registerBtn)

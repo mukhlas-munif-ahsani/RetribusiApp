@@ -42,7 +42,7 @@ public class LoginPres implements LoginPresInt{
     public void onEventMainThread(LoginEvent event){
         switch (event.getEventType()){
             case onLoginSuccess:
-                onLoginSuccess();
+                onLoginSuccess(event.getLevel());
                 break;
             case onLoginError:
                 onLoginError(event.getErrorMessage());
@@ -54,8 +54,14 @@ public class LoginPres implements LoginPresInt{
         loginViewInt.showMessage(error);
     }
 
-    private void onLoginSuccess() {
-        loginViewInt.navigateToMain();
+    private void onLoginSuccess(String level) {
+        if (level.equals("PEDAGANG")){
+            loginViewInt.navigateToPedagang();
+        }
+
+        if (level.equals("PETUGAS")){
+            loginViewInt.navigateToPetugas();
+        }
     }
 
     public boolean isValidForm(String email, String pass){
