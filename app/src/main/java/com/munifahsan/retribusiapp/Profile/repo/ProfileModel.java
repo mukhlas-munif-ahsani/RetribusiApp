@@ -1,12 +1,9 @@
-package com.munifahsan.retribusiapp.Profile;
+package com.munifahsan.retribusiapp.Profile.repo;
 
-public class ProfileEvent {
+import com.google.firebase.firestore.DocumentId;
 
-    public static final int onGetDataError = 0;
-    public static final int onGetDataSuccess = 1;
-
-    private int eventType;
-    private String errorMessage;
+public class ProfileModel {
+    @DocumentId
     private String id;
     private String created_at;
     private String updated_at;
@@ -18,20 +15,20 @@ public class ProfileEvent {
     private String nohp_number;
     private String token_id;
 
-    public int getEventType() {
-        return eventType;
+    public ProfileModel() {
     }
 
-    public void setEventType(int eventType) {
-        this.eventType = eventType;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public ProfileModel(String id, String created_at, String updated_at, String alamat, String lokasi, String email, String level, String nama, String nohp_number, String token_id) {
+        this.id = id;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.alamat = alamat;
+        this.lokasi = lokasi;
+        this.email = email;
+        this.level = level;
+        this.nama = nama;
+        this.nohp_number = nohp_number;
+        this.token_id = token_id;
     }
 
     public String getId() {

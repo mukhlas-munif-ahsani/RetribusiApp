@@ -43,6 +43,10 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     TextInputLayout emailLay;
     @BindView(R.id.alamatTextInputLayout)
     TextInputLayout alamatLay;
+    @BindView(R.id.lokasiTextInputLayout)
+    TextInputLayout lokasiLay;
+    @BindView(R.id.lokasiTxt)
+    TextInputEditText lokasi;
     @BindView(R.id.nohpTextInputLayout)
     TextInputLayout nohpLay;
     @BindView(R.id.levelTextInputLayout)
@@ -124,6 +128,11 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     }
 
     @Override
+    public void setLokasiError(String lokasi) {
+        lokasiLay.setError(lokasi);
+    }
+
+    @Override
     public void setNohpError(String nohp) {
         nohpLay.setError(nohp);
     }
@@ -147,6 +156,7 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     public void setInputsEnabled(Boolean enabled) {
         nama.setEnabled(enabled);
         alamat.setEnabled(enabled);
+        lokasi.setEnabled(enabled);
         nohp.setEnabled(enabled);
         level.setEnabled(enabled);
         pass.setEnabled(enabled);
@@ -173,13 +183,14 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
         String nama = this.nama.getText().toString();
         String email = this.email.getText().toString();
         String alamat  = this.alamat.getText().toString();
+        String lokasi = this.lokasi.getText().toString();
         String nohp = this.nohp.getText().toString();
         String level = this.level.getText().toString();
         String pass = this.pass.getText().toString();
         String confirm = confirmPass.getText().toString();
 
-        if (registerPressInt.isValidForm(nama, email, alamat, nohp, level, pass, confirm)){
-            registerPressInt.validateRegister(nama, email, alamat, nohp, level, pass);
+        if (registerPressInt.isValidForm(nama, email, alamat, lokasi, nohp, level, pass, confirm)){
+            registerPressInt.validateRegister(nama, email, alamat, lokasi, nohp, level, pass);
         }
     }
 

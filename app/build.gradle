@@ -60,4 +60,11 @@ dependencies {
     //Butter knife
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    //Qr Generator
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+    implementation 'com.google.zxing:core:3.3.2'
+
+    //Facebook Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
 }

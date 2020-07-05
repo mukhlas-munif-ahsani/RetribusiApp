@@ -9,8 +9,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.munifahsan.retribusiapp.History.HistoryFragment;
-import com.munifahsan.retribusiapp.HomePedagang.HomePedagangFragment;
-import com.munifahsan.retribusiapp.HomePetugas.HomePetugasFragment;
+import com.munifahsan.retribusiapp.HomePedagang.view.HomePedagangFragment;
 import com.munifahsan.retribusiapp.Profile.view.ProfileFragment;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.TopUp.TopUpFragment;
@@ -44,7 +43,7 @@ public class MainPedagang extends AppCompatActivity implements BottomNavigationV
         Fragment fragment = null;
         switch (item.getItemId()){
             case R.id.navigation_home:
-                fragment = new HomePetugasFragment();
+                fragment = new HomePedagangFragment();
                 break;
             case R.id.navigation_transfer:
                 fragment = new TopUpFragment();

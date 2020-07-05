@@ -62,9 +62,10 @@ public class RegisterPres implements RegisterPresInt {
 
         if (level.equals("PETUGAS")){
             registerViewInt.navigateToPetugas();
-        }    }
+        }
+    }
 
-    public boolean isValidForm(String nama, String email, String alamat, String nohp, String level, String pass, String confirm){
+    public boolean isValidForm(String nama, String email, String alamat, String lokasi, String nohp, String level, String pass, String confirm){
         boolean isValid = true;
         if (nama.isEmpty()){
             isValid = false;
@@ -84,6 +85,11 @@ public class RegisterPres implements RegisterPresInt {
         if (alamat.isEmpty()){
             isValid = false;
             registerViewInt.setAlamatError("Alamat Tidak Boleh Kosong");
+        }
+
+        if (lokasi.isEmpty()){
+            isValid = false;
+            registerViewInt.setLokasiError("Lokasi Tidak Boleh Kosong");
         }
 
         if (nohp.isEmpty()){
@@ -113,11 +119,11 @@ public class RegisterPres implements RegisterPresInt {
         return isValid;
     }
 
-    public void validateRegister(String nama, String email, String alamat, String nohp, String level, String pass){
+    public void validateRegister(String nama, String email, String alamat, String lokasi, String nohp, String level, String pass){
         registerViewInt.setInputsEnabled(false);
         registerViewInt.showProgress();
 
-        registerRepoInt.doSignUp(nama, email, alamat, nohp, level, pass);
+        registerRepoInt.doSignUp(nama, email, alamat, lokasi, nohp, level, pass);
     }
 
     public static boolean isEmailValid(String email) {

@@ -1,37 +1,38 @@
-package com.munifahsan.retribusiapp.Profile;
+package com.munifahsan.retribusiapp.HomePedagang.repo;
 
-public class ProfileEvent {
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentId;
 
-    public static final int onGetDataError = 0;
-    public static final int onGetDataSuccess = 1;
+import java.sql.Time;
 
-    private int eventType;
-    private String errorMessage;
+public class HomePedagangModel {
+    @DocumentId
     private String id;
+
+    private int saldo;
     private String created_at;
     private String updated_at;
+
     private String alamat;
-    private String lokasi;
     private String email;
     private String level;
     private String nama;
     private String nohp_number;
     private String token_id;
 
-    public int getEventType() {
-        return eventType;
-    }
+    public HomePedagangModel() {}
 
-    public void setEventType(int eventType) {
-        this.eventType = eventType;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public HomePedagangModel(String id, int saldo, String created_at, String updated_at, String alamat, String email, String level, String nama, String nohp_number, String token_id) {
+        this.id = id;
+        this.saldo = saldo;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.alamat = alamat;
+        this.email = email;
+        this.level = level;
+        this.nama = nama;
+        this.nohp_number = nohp_number;
+        this.token_id = token_id;
     }
 
     public String getId() {
@@ -40,6 +41,14 @@ public class ProfileEvent {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
     }
 
     public String getCreated_at() {
@@ -64,14 +73,6 @@ public class ProfileEvent {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
-    }
-
-    public String getLokasi() {
-        return lokasi;
-    }
-
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
     }
 
     public String getEmail() {
@@ -114,3 +115,4 @@ public class ProfileEvent {
         this.token_id = token_id;
     }
 }
+
