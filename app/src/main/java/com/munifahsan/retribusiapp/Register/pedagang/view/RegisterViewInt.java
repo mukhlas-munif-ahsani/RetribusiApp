@@ -1,4 +1,4 @@
-package com.munifahsan.retribusiapp.Register.view;
+package com.munifahsan.retribusiapp.Register.pedagang.view;
 
 public interface RegisterViewInt {
     void showProgress();
@@ -9,7 +9,6 @@ public interface RegisterViewInt {
     void setAlamatError(String alamat);
     void setLokasiError(String lokasi);
     void setNohpError(String nohp);
-    void setLevelError(String level);
     void setPassError(String passError);
     void setConfirmError(String confirmError);
     void setInputsEnabled(Boolean enabled);

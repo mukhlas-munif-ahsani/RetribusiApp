@@ -7,6 +7,15 @@ public class RegisterEvent {
     private int eventType;
     private String errorMessage;
     private String level;
+    private String tokenError;
+
+    public String getTokenError() {
+        return tokenError;
+    }
+
+    public void setTokenError(String tokenError) {
+        this.tokenError = tokenError;
+    }
 
     public String getLevel() {
         return level;

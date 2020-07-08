@@ -65,6 +65,13 @@ dependencies {
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
     implementation 'com.google.zxing:core:3.3.2'
 
+    //Qr scanner
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+
     //Facebook Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
+
+    //Smart Tab Layout
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
 }

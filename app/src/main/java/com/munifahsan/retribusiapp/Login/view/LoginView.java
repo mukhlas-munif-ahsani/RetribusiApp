@@ -16,7 +16,8 @@ import com.munifahsan.retribusiapp.Login.presenter.LoginPresInt;
 import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
 import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.Register.view.RegisterView;
+import com.munifahsan.retribusiapp.Register.RegisterActivity;
+import com.munifahsan.retribusiapp.Register.pedagang.view.RegisterView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,7 +114,7 @@ public class LoginView extends AppCompatActivity implements LoginViewInt{
     @Override
     @OnClick(R.id.login_register)
     public void navigateToRegister() {
-        Intent intent = new Intent(this, RegisterView.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 

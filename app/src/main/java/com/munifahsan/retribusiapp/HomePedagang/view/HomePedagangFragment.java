@@ -1,7 +1,6 @@
 package com.munifahsan.retribusiapp.HomePedagang.view;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,11 +19,6 @@ import com.munifahsan.retribusiapp.HomePedagang.pres.HomePedagangPresInt;
 import com.munifahsan.retribusiapp.R;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -57,8 +51,8 @@ public class HomePedagangFragment extends Fragment implements HomePedagangViewIn
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home, container, false);
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+//        return inflater.inflate(R.layout.fragment_home_pedagang, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_pedagang, container, false);
 
         ButterKnife.bind(this, view);
 

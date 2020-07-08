@@ -6,14 +6,11 @@ import com.munifahsan.retribusiapp.HomePedagang.HomePedagangEvent;
 import com.munifahsan.retribusiapp.HomePedagang.repo.HomePedagangRepo;
 import com.munifahsan.retribusiapp.HomePedagang.repo.HomePedagangRepoInt;
 import com.munifahsan.retribusiapp.HomePedagang.view.HomePedagangViewInt;
-import com.munifahsan.retribusiapp.Register.RegisterEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import static com.munifahsan.retribusiapp.HomePedagang.HomePedagangEvent.onGetDataError;
 import static com.munifahsan.retribusiapp.HomePedagang.HomePedagangEvent.onGetDataSuccess;
-import static com.munifahsan.retribusiapp.Register.RegisterEvent.onSignUpError;
-import static com.munifahsan.retribusiapp.Register.RegisterEvent.onSignUpSuccess;
 
 public class HomePedagangPres implements HomePedagangPresInt{
     private HomePedagangViewInt homePedagangViewInt;

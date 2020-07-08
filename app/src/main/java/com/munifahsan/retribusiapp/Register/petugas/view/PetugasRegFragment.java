@@ -1,12 +1,13 @@
-package com.munifahsan.retribusiapp.Register.view;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.munifahsan.retribusiapp.Register.petugas.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,24 +18,32 @@ import com.munifahsan.retribusiapp.Login.view.LoginView;
 import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
 import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.Register.presenter.RegisterPres;
-import com.munifahsan.retribusiapp.Register.presenter.RegisterPresInt;
+import com.munifahsan.retribusiapp.Register.pedagang.presenter.RegisterPresInt;
+import com.munifahsan.retribusiapp.Register.petugas.pres.PtgRegPres;
+import com.munifahsan.retribusiapp.Register.petugas.pres.PtgRegPresInt;
+import com.munifahsan.retribusiapp.Register.petugas.view.PtgRegViewInt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterView extends AppCompatActivity implements RegisterViewInt {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class PetugasRegFragment extends Fragment implements PtgRegViewInt{
 
     private ProgressBar progressBar;
     private TextInputEditText nama;
     private TextInputEditText alamat;
     private TextInputEditText nohp;
-    private AutoCompleteTextView level;
     private TextInputEditText pass;
     private TextInputEditText confirmPass;
     private Button register;
 
+    @BindView(R.id.tokenTextInputLayout)
+    TextInputLayout tokenLay;
+    @BindView(R.id.tokenTxt)
+    TextInputEditText token;
     @BindView(R.id.emailTxt)
     TextInputEditText email;
     @BindView(R.id.namaTextInputLayout)
@@ -49,8 +58,6 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     TextInputEditText lokasi;
     @BindView(R.id.nohpTextInputLayout)
     TextInputLayout nohpLay;
-    @BindView(R.id.levelTextInputLayout)
-    TextInputLayout levelLay;
     @BindView(R.id.passTextInputLayout)
     TextInputLayout passLay;
     @BindView(R.id.confirmTextInputLayout)
@@ -59,41 +66,37 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
     @BindView(R.id.register_login)
     Button regLogin;
 
-    private RegisterPresInt registerPressInt;
+    private PtgRegPresInt ptgRegPresInt;
+
+    public PetugasRegFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_petugas_reg, container, false);
 
-        registerPressInt = new RegisterPres(this);
-        registerPressInt.onCreate();
+        ButterKnife.bind(this, view);
 
-        ButterKnife.bind(this);
+        ptgRegPresInt = new PtgRegPres(this);
+        ptgRegPresInt.onCreate();
 
-        progressBar = findViewById(R.id.registerProgress);
-        nama = findViewById(R.id.namaTxt);
-        alamat = findViewById(R.id.alamatTxt);
-        nohp = findViewById(R.id.nohpTxt);
-        level = findViewById(R.id.levelTxt);
-        pass = findViewById(R.id.passTxt);
-        confirmPass = findViewById(R.id.confirmPassTxt);
+        progressBar = view.findViewById(R.id.registerProgress);
+        nama = view.findViewById(R.id.namaTxt);
+        alamat = view.findViewById(R.id.alamatTxt);
+        nohp = view.findViewById(R.id.nohpTxt);
+        pass = view.findViewById(R.id.passTxt);
+        confirmPass = view.findViewById(R.id.confirmPassTxt);
 
-        String[] levelItems = new String[]{
-                "PETUGAS",
-                "PEDAGANG"
-        };
-
-        ArrayAdapter<String> levelAdapter = new ArrayAdapter<>(
-                RegisterView.this, R.layout.dropdown_level, levelItems
-        );
-
-        level.setAdapter(levelAdapter);
+        return view;
     }
 
     @Override
-    protected void onDestroy() {
-        registerPressInt.onDestroy();
+    public void onDestroy() {
+        ptgRegPresInt.onDestroy();
         super.onDestroy();
     }
 
@@ -109,7 +112,12 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
 
     @Override
     public void showMessage(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setTokenError(String tokenError) {
+        tokenLay.setError(tokenError);
     }
 
     @Override
@@ -137,10 +145,6 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
         nohpLay.setError(nohp);
     }
 
-    @Override
-    public void setLevelError(String level) {
-        levelLay.setError(level);
-    }
 
     @Override
     public void setPassError(String passError) {
@@ -154,49 +158,49 @@ public class RegisterView extends AppCompatActivity implements RegisterViewInt {
 
     @Override
     public void setInputsEnabled(Boolean enabled) {
+        token.setEnabled(enabled);
         nama.setEnabled(enabled);
         alamat.setEnabled(enabled);
         lokasi.setEnabled(enabled);
         nohp.setEnabled(enabled);
-        level.setEnabled(enabled);
         pass.setEnabled(enabled);
         confirmPass.setEnabled(enabled);
     }
 
     @Override
     public void navigateToPedagang() {
-        Intent intent = new Intent(this, MainPedagang.class);
+        Intent intent = new Intent(getActivity(), MainPedagang.class);
         startActivity(intent);
-        finish();
+        getActivity().finish();
     }
 
     @Override
     public void navigateToPetugas() {
-        Intent intent = new Intent(this, MainPetugas.class);
+        Intent intent = new Intent(getActivity(), MainPetugas.class);
         startActivity(intent);
-        finish();
+        getActivity().finish();
     }
 
     @OnClick(R.id.registerBtn)
     public void regOnclick() {
 
+        String token = this.token.getText().toString();
         String nama = this.nama.getText().toString();
         String email = this.email.getText().toString();
         String alamat  = this.alamat.getText().toString();
         String lokasi = this.lokasi.getText().toString();
         String nohp = this.nohp.getText().toString();
-        String level = this.level.getText().toString();
         String pass = this.pass.getText().toString();
         String confirm = confirmPass.getText().toString();
 
-        if (registerPressInt.isValidForm(nama, email, alamat, lokasi, nohp, level, pass, confirm)){
-            registerPressInt.validateRegister(nama, email, alamat, lokasi, nohp, level, pass);
+        if (ptgRegPresInt.isValidForm(token, nama, email, alamat, lokasi, nohp, pass, confirm)){
+            ptgRegPresInt.validateRegister(token, nama, email, alamat, lokasi, nohp, pass);
         }
     }
 
     @OnClick(R.id.register_login)
     public void regLogOnClick(){
-        Intent intent = new Intent(this, LoginView.class);
+        Intent intent = new Intent(getActivity(), LoginView.class);
         startActivity(intent);
     }
 }

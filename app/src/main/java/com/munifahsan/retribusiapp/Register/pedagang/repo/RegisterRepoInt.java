@@ -1,4 +1,4 @@
-package com.munifahsan.retribusiapp.Register.repo;
+package com.munifahsan.retribusiapp.Register.pedagang.repo;
 
 public interface RegisterRepoInt {
 

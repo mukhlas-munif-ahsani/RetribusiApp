@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">@color/blue_800</color>
     <color name="colorAccent">@color/blue_300</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>
     <color name="red_200">#EF9A9A</color>
@@ -279,6 +281,12 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="text_enabled">#FFFFFFFF</color>
+    <color name="text_disabled">#4DFFFFFF</color>
+
+    <color name="medium_text_enabled">#FF000000</color>
+    <color name="medium_text_disabled">#4D000000</color>
 
     <!-- Colors for the app -->
     <color name="primary">@color/indigo_500</color>

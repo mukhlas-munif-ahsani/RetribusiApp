@@ -1,11 +1,11 @@
-package com.munifahsan.retribusiapp.Register.presenter;
+package com.munifahsan.retribusiapp.Register.pedagang.presenter;
 
 import com.munifahsan.retribusiapp.EventBuss.EventBus;
 import com.munifahsan.retribusiapp.EventBuss.GreenRobotEventBus;
 import com.munifahsan.retribusiapp.Register.RegisterEvent;
-import com.munifahsan.retribusiapp.Register.repo.RegisterRepo;
-import com.munifahsan.retribusiapp.Register.repo.RegisterRepoInt;
-import com.munifahsan.retribusiapp.Register.view.RegisterViewInt;
+import com.munifahsan.retribusiapp.Register.pedagang.repo.RegisterRepo;
+import com.munifahsan.retribusiapp.Register.pedagang.repo.RegisterRepoInt;
+import com.munifahsan.retribusiapp.Register.pedagang.view.RegisterViewInt;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -65,7 +65,7 @@ public class RegisterPres implements RegisterPresInt {
         }
     }
 
-    public boolean isValidForm(String nama, String email, String alamat, String lokasi, String nohp, String level, String pass, String confirm){
+    public boolean isValidForm(String nama, String email, String alamat, String lokasi, String nohp, String pass, String confirm){
         boolean isValid = true;
         if (nama.isEmpty()){
             isValid = false;
@@ -97,11 +97,6 @@ public class RegisterPres implements RegisterPresInt {
             registerViewInt.setNohpError("No Hp Tidak Boleh Kosong");
         }
 
-        if (level.isEmpty()){
-            isValid = false;
-            registerViewInt.setLevelError("Anda Harus Memilih 1");
-        }
-
         if (pass.isEmpty()){
             isValid = false;
             registerViewInt.setPassError("Password Tidak Boleh Kosong");
@@ -119,11 +114,11 @@ public class RegisterPres implements RegisterPresInt {
         return isValid;
     }
 
-    public void validateRegister(String nama, String email, String alamat, String lokasi, String nohp, String level, String pass){
+    public void validateRegister(String nama, String email, String alamat, String lokasi, String nohp, String pass){
         registerViewInt.setInputsEnabled(false);
         registerViewInt.showProgress();
 
-        registerRepoInt.doSignUp(nama, email, alamat, lokasi, nohp, level, pass);
+        registerRepoInt.doSignUp(nama, email, alamat, lokasi,  nohp, "PEDAGANG", pass);
     }
 
     public static boolean isEmailValid(String email) {

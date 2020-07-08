@@ -4,11 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -16,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.munifahsan.retribusiapp.EventBuss.EventBus;
 import com.munifahsan.retribusiapp.EventBuss.GreenRobotEventBus;
 import com.munifahsan.retribusiapp.HomePedagang.HomePedagangEvent;
-import com.munifahsan.retribusiapp.Register.RegisterEvent;
 
 public class HomePedagangRepo implements HomePedagangRepoInt{
 
