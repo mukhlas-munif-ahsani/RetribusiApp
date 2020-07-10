@@ -1,15 +1,23 @@
 package com.munifahsan.retribusiapp.MainPetugas;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.munifahsan.retribusiapp.History.HistoryFragment;
-import com.munifahsan.retribusiapp.HomePetugas.HomePetugasFragment;
+import com.munifahsan.retribusiapp.HomePetugas.view.HomePetugasFragment;
 import com.munifahsan.retribusiapp.Profile.view.ProfileFragment;
 import com.munifahsan.retribusiapp.R;
 import com.munifahsan.retribusiapp.Transfer.TransferFragment;
@@ -67,5 +75,35 @@ public class MainPetugas extends AppCompatActivity implements BottomNavigationVi
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        Log.v("barcode result", result.getContents());
+        if (result != null){
+            if (result.getContents() != null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(result.getContents());
+                builder.setTitle("Scaning result");
+                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                Toast.makeText(this, "No Result", Toast.LENGTH_LONG).show();
+            }
+        }else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

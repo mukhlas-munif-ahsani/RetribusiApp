@@ -1,4 +1,4 @@
-package com.munifahsan.retribusiapp.HomePetugas;
+package com.munifahsan.retribusiapp.ScanAct;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 

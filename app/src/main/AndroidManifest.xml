@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/rd_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Register.RegisterActivity"></activity>
+        <activity android:name=".ScanAct.view.ScanActActivity"></activity>
+        <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".MainPetugas.MainPetugas" />
         <activity android:name=".MainPedagang.MainPedagang" />
         <activity android:name=".SplashScreenActivity">
@@ -25,10 +26,11 @@
         <activity android:name=".Login.view.LoginView" />
         <activity android:name=".Register.pedagang.view.RegisterView" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".HomePetugas.CaptureAct"
+        <activity
+            android:name=".ScanAct.CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <meta-data
             android:name="preloaded_fonts"

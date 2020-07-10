@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomePetugas.HomePetugasFragment">
+    tools:context=".HomePetugas.view.HomePetugasFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -93,56 +93,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/saldo_txt" />
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/qr_shimmer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            shimmer_duration="1500">
 
-            <RelativeLayout
-                android:background="@color/grey_300"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_marginTop="16dp">
-
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/imageView"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
-                    android:src="@drawable/qr_image"
-                    android:alpha=".60"/>
-            </RelativeLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-        <ImageButton
-            android:id="@+id/pedagang_qr_image"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:elevation="4dp"
+        <Button
+            android:id="@+id/petugas_qr_bayar_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/ic_launcher_background"
+            android:elevation="4dp"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:srcCompat="@drawable/ic_launcher_background"
             tools:ignore="VectorDrawableCompat" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Code Qr Anda"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pedagang_qr_image" />
+        <Button
+            android:id="@+id/petugas_qr_topup_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:elevation="4dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/petugas_qr_bayar_btn"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:srcCompat="@drawable/ic_launcher_background"
+            tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
