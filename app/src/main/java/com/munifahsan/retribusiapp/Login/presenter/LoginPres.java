@@ -51,6 +51,9 @@ public class LoginPres implements LoginPresInt{
     }
 
     private void onLoginError(String error) {
+        loginViewInt.hideProgress();
+        loginViewInt.setInputs(true);
+
         loginViewInt.showMessage(error);
     }
 

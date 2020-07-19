@@ -125,6 +125,7 @@ public class HomePetugasFragment extends Fragment implements HomePtgViewInt {
                 dialog.show();
             } else {
                 Toast.makeText(getActivity(), "No Result", Toast.LENGTH_LONG).show();
+                getActivity().finish();
             }
         }else {
             super.onActivityResult(requestCode, resultCode, data);

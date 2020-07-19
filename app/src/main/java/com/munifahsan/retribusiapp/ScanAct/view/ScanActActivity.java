@@ -3,6 +3,7 @@ package com.munifahsan.retribusiapp.ScanAct.view;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,9 +29,9 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
     private ScanActPresInt scanActPresInt;
 
     @BindView(R.id.bayar)
-    LinearLayout mBayar;
+    ConstraintLayout mBayar;
     @BindView(R.id.selesai)
-    LinearLayout mSelesai;
+    ConstraintLayout mSelesai;
     private int scanType;
 
     @Override
@@ -96,10 +97,12 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
 //                AlertDialog dialog = builder.create();
 //                dialog.show();
             } else {
-                Toast.makeText(this, "No Result", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "No Result", Toast.LENGTH_LONG).show();
+                finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+            navigateToHomePtg();
         }
     }
 
@@ -142,7 +145,7 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
             public void run() {
                 navigateToHomePtg();
             }
-        }, 3000);
+        }, 1000);
     }
 
     public void navigateToHomePtg() {

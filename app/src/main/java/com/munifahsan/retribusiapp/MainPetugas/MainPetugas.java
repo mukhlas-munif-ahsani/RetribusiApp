@@ -53,9 +53,9 @@ public class MainPetugas extends AppCompatActivity implements BottomNavigationVi
             case R.id.navigation_home:
                 fragment = new HomePetugasFragment();
                 break;
-            case R.id.navigation_transfer:
-                fragment = new TransferFragment();
-                break;
+//            case R.id.navigation_transfer:
+//                fragment = new TransferFragment();
+//                break;
             case R.id.navigation_history:
                 fragment = new HistoryFragment();
                 break;
