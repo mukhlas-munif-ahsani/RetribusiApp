@@ -58,9 +58,17 @@ public class ScanActPres implements ScanActPresInt{
         scanActViewInt.navigateToHomePtg();
     }
 
-    public void getDataBayar(String qrId){
+    @Override
+    public void proceedTopup(String idPedagang, int nominal) {
+        scanActViewInt.hideSelesai();
+        scanActViewInt.hideTopUpLay();
+        scanActViewInt.showBayar();
+        scanActRepoInt.proceedTopup(idPedagang, nominal);
+    }
+
+    public void proceedPajak(String idPedagang){
         scanActViewInt.hideSelesai();
         scanActViewInt.showBayar();
-        scanActRepoInt.getData(qrId);
+        scanActRepoInt.proceedPajak(idPedagang);
     }
 }

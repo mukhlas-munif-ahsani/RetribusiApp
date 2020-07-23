@@ -2,27 +2,19 @@ package com.munifahsan.retribusiapp.Register.pedagang.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.munifahsan.retribusiapp.Login.view.LoginView;
-import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
-import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.Register.pedagang.presenter.RegisterPres;
 import com.munifahsan.retribusiapp.Register.pedagang.presenter.RegisterPresInt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class RegisterView extends AppCompatActivity {
 
@@ -72,7 +64,7 @@ public class RegisterView extends AppCompatActivity {
         ButterKnife.bind(this);
 
         progressBar = findViewById(R.id.registerProgress);
-        nama = findViewById(R.id.namaTxt);
+        nama = findViewById(R.id.nominalTxt);
         alamat = findViewById(R.id.alamatTxt);
         nohp = findViewById(R.id.nohpTxt);
         level = findViewById(R.id.levelTxt);

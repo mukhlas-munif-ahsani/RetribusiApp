@@ -18,10 +18,8 @@ import com.munifahsan.retribusiapp.Login.view.LoginView;
 import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
 import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.Register.pedagang.presenter.RegisterPresInt;
 import com.munifahsan.retribusiapp.Register.petugas.pres.PtgRegPres;
 import com.munifahsan.retribusiapp.Register.petugas.pres.PtgRegPresInt;
-import com.munifahsan.retribusiapp.Register.petugas.view.PtgRegViewInt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +83,7 @@ public class PetugasRegFragment extends Fragment implements PtgRegViewInt{
         ptgRegPresInt.onCreate();
 
         progressBar = view.findViewById(R.id.registerProgress);
-        nama = view.findViewById(R.id.namaTxt);
+        nama = view.findViewById(R.id.nominalTxt);
         alamat = view.findViewById(R.id.alamatTxt);
         nohp = view.findViewById(R.id.nohpTxt);
         pass = view.findViewById(R.id.passTxt);

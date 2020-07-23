@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -79,7 +78,7 @@ public class PedagangRegFragment extends Fragment implements RegisterViewInt{
         registerPressInt.onCreate();
 
         progressBar = view.findViewById(R.id.registerProgress);
-        nama = view.findViewById(R.id.namaTxt);
+        nama = view.findViewById(R.id.nominalTxt);
         alamat = view.findViewById(R.id.alamatTxt);
         nohp = view.findViewById(R.id.nohpTxt);
         pass = view.findViewById(R.id.passTxt);

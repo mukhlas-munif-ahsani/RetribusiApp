@@ -1,18 +1,17 @@
 package com.munifahsan.retribusiapp.ScanAct.view;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
@@ -23,6 +22,7 @@ import com.munifahsan.retribusiapp.ScanAct.pres.ScanActPresInt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ScanActActivity extends AppCompatActivity implements ScanActViewInt {
 
@@ -32,6 +32,14 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
     ConstraintLayout mBayar;
     @BindView(R.id.selesai)
     ConstraintLayout mSelesai;
+    @BindView(R.id.topUpLay)
+    ConstraintLayout mTopUpLay;
+    @BindView(R.id.nominalTxt)
+    TextInputEditText mNominal;
+    @BindView(R.id.idTxt)
+    TextInputEditText mIdPedagang;
+    @BindView(R.id.kirimBtn)
+    Button mKirim;
     private int scanType;
 
     @Override
@@ -79,6 +87,8 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
 
                 if (scanType == 2) {
                     Toast.makeText(this, "Tipe Scan 2 : " + result.getContents(), Toast.LENGTH_LONG).show();
+                    mIdPedagang.setText(result.getContents());
+                    showTopUplay();
                 }
 //                AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //                builder.setMessage(result.getContents());
@@ -107,11 +117,17 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
     }
 
     public void bayarPajak(String qrId) {
-        scanActPresInt.getDataBayar(qrId);
+        scanActPresInt.proceedPajak(qrId);
     }
 
+    @OnClick(R.id.kirimBtn)
     public void topUp() {
+        String idPedagang = mIdPedagang.getText().toString();
+        String nominal = mNominal.getText().toString();
 
+        mNominal.setEnabled(false);
+        mIdPedagang.setEnabled(false);
+        scanActPresInt.proceedTopup(idPedagang, Integer.parseInt(nominal));
     }
 
     public void showMessage(String msg) {
@@ -136,6 +152,16 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
     @Override
     public void hideSelesai() {
         mSelesai.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showTopUplay() {
+        mTopUpLay.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideTopUpLay() {
+        mTopUpLay.setVisibility(View.INVISIBLE);
     }
 
     public void navigatePtgDelay(){

@@ -39,9 +39,33 @@ public class ScanActRepo implements ScanActRepoInt {
         current_id = mAuth.getCurrentUser().getUid();
     }
 
+    @Override
+    public void proceedTopup(String idPedagang, int nominal) {
+        usersRef.document(idPedagang).collection("INV").document("SALDO")
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    ScanActModel model = documentSnapshot.toObject(ScanActModel.class);
+                    int saldoPdg = model.getSaldo();
+
+                    int ttlSaldo = saldoPdg + nominal;
+                    updateSaldoPdg2(idPedagang, ttlSaldo, nominal);
+
+                } else {
+                    postEvent(ScanActEvent.onGetDataError, "Pedagang degan code Qr ini tidak ditemukan");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                postEvent(ScanActEvent.onGetDataError, e.getMessage());
+            }
+        });
+    }
 
     @Override
-    public void getData(String qrId) {
+    public void proceedPajak(String qrId) {
 
         pajakRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -62,7 +86,7 @@ public class ScanActRepo implements ScanActRepoInt {
                                 postEvent(ScanActEvent.onGetDataError, "Saldo pedagang tidak mencukupi");
                             } else {
                                 int cutSaldo = saldoPdg - pajak;
-                                updateSaldoPdg(qrId, cutSaldo);
+                                updateSaldoPdg1(qrId, cutSaldo);
                             }
                         } else {
                             postEvent(ScanActEvent.onGetDataError, "Pedagang degan code Qr ini tidak ditemukan");
@@ -126,15 +150,15 @@ public class ScanActRepo implements ScanActRepoInt {
         return nama[0];
     }
 
-    public void updateSaldoPdg(String qrId, int cutSaldo) {
+    public void updateSaldoPdg1(String idPedagang, int saldo) {
         getNowTime();
-        usersRef.document(qrId).collection("INV").document("SALDO")
-                .update("saldo", cutSaldo,
+        usersRef.document(idPedagang).collection("INV").document("SALDO")
+                .update("saldo", saldo,
                         "updated_at", mNowTime).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    updateSaldoPtg(qrId, cutSaldo);
+                    updateSaldoPtg1(idPedagang, saldo);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -145,7 +169,26 @@ public class ScanActRepo implements ScanActRepoInt {
         });
     }
 
-    public void updateSaldoPtg(String qrId, int cutSaldo) {
+    public void updateSaldoPdg2(String idPedagang, int saldo, int nominal) {
+        getNowTime();
+        usersRef.document(idPedagang).collection("INV").document("SALDO")
+                .update("saldo", saldo,
+                        "updated_at", mNowTime).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    updateSaldoPtg2(idPedagang, saldo, nominal);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                postEvent(ScanActEvent.onGetDataError, e.getMessage());
+            }
+        });
+    }
+
+    public void updateSaldoPtg1(String idPedagang, int saldo) {
         getNowTime();
 
         pajakRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -169,7 +212,7 @@ public class ScanActRepo implements ScanActRepoInt {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    addHistory(qrId, cutSaldo, pajak, nama);
+                                    addHistory(idPedagang, saldo, pajak, nama);
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -197,21 +240,58 @@ public class ScanActRepo implements ScanActRepoInt {
 
     }
 
-    public void addHistory(String qrId, int cutSaldo, int pajak, String nama) {
+    public void updateSaldoPtg2(String idPedagang, int saldo, int nominal) {
+        getNowTime();
+
+        usersRef.document(current_id).collection("INV").document("SALDO")
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                ScanActModel model = documentSnapshot.toObject(ScanActModel.class);
+                int saldoPtg = model.getSaldo();
+                int plusSaldo = saldoPtg - nominal;
+
+                usersRef.document(current_id).collection("INV").document("SALDO")
+                        .update("saldo", plusSaldo,
+                                "updated_at", mNowTime).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            addHistory(idPedagang, saldo, nominal, "TOP UP");
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        postEvent(ScanActEvent.onGetDataError, e.getMessage());
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                postEvent(ScanActEvent.onGetDataError, e.getMessage());
+            }
+        });
+
+    }
+
+    public void addHistory(String idPedagang, int saldo, int potongan, String nama) {
         getNowTime();
         Map<String, Object> historyMap = new HashMap<>();
         historyMap.put("petugas_id", current_id);
-        historyMap.put("potongan", pajak);
+        historyMap.put("potongan", potongan);
         historyMap.put("created_at", mNowTime);
-        historyMap.put("pedagang_id", qrId);
+        historyMap.put("pedagang_id", idPedagang);
         historyMap.put("jenis", nama);
-        historyMap.put("sisa_saldo", cutSaldo);
+        historyMap.put("sisa_saldo", saldo);
 
         firebaseFirestore.collection("HISTORY").document()
                 .set(historyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                postEvent(ScanActEvent.onGetDataSuccess, "Pembayaran berhasil");
+                postEvent(ScanActEvent.onGetDataSuccess, "Transaksi berhasil");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

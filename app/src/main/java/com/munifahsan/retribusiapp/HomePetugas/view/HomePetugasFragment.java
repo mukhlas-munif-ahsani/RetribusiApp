@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +43,9 @@ public class HomePetugasFragment extends Fragment implements HomePtgViewInt {
     @BindView(R.id.saldo_txt)
     TextView mSaldo;
     @BindView(R.id.petugas_qr_bayar_btn)
-    Button mQrButton;
+    LinearLayout mQrButton;
     @BindView(R.id.petugas_qr_topup_btn)
-    Button mQrTopupBtn;
+    LinearLayout mQrTopupBtn;
     @BindView(R.id.saldo_shimmer)
     ShimmerFrameLayout saldoShimmer;
 

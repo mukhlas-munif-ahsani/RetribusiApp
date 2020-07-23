@@ -30,11 +30,13 @@ public class HistoryAdapter extends FirestoreRecyclerAdapter<HistoryModel, Histo
         if (model.getJenis().equals("PAJAK")) {
             holder.mPlus.setVisibility(View.INVISIBLE);
             holder.mMin.setVisibility(View.VISIBLE);
+            holder.mImage.setImageResource(R.drawable.pajak_icon);
         }
 
         if (model.getJenis().equals("TOP UP")) {
             holder.mPlus.setVisibility(View.VISIBLE);
             holder.mMin.setVisibility(View.INVISIBLE);
+            holder.mImage.setImageResource(R.drawable.top_up_ic);
         }
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##,###,###");

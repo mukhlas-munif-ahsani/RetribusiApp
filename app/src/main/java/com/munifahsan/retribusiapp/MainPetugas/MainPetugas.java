@@ -16,11 +16,10 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.munifahsan.retribusiapp.History.HistoryFragment;
+import com.munifahsan.retribusiapp.History.HistoryPetugasFragment;
 import com.munifahsan.retribusiapp.HomePetugas.view.HomePetugasFragment;
 import com.munifahsan.retribusiapp.Profile.view.ProfileFragment;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.Transfer.TransferFragment;
 
 public class MainPetugas extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -57,7 +56,7 @@ public class MainPetugas extends AppCompatActivity implements BottomNavigationVi
 //                fragment = new TransferFragment();
 //                break;
             case R.id.navigation_history:
-                fragment = new HistoryFragment();
+                fragment = new HistoryPetugasFragment();
                 break;
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();

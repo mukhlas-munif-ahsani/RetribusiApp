@@ -65,6 +65,10 @@ public class LoginPres implements LoginPresInt{
         if (level.equals("PETUGAS")){
             loginViewInt.navigateToPetugas();
         }
+
+        if (level.equals("ADMIN")){
+
+        }
     }
 
     public boolean isValidForm(String email, String pass){

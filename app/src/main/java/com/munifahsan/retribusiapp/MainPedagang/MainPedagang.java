@@ -8,11 +8,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.munifahsan.retribusiapp.History.HistoryFragment;
+import com.munifahsan.retribusiapp.History.HistoryPedagangFragment;
 import com.munifahsan.retribusiapp.HomePedagang.view.HomePedagangFragment;
 import com.munifahsan.retribusiapp.Profile.view.ProfileFragment;
 import com.munifahsan.retribusiapp.R;
-import com.munifahsan.retribusiapp.TopUp.TopUpFragment;
 
 public class MainPedagang extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -45,11 +44,11 @@ public class MainPedagang extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_home:
                 fragment = new HomePedagangFragment();
                 break;
-            case R.id.navigation_transfer:
-                fragment = new TopUpFragment();
-                break;
+//            case R.id.navigation_transfer:
+//                fragment = new TopUpFragment();
+//                break;
             case R.id.navigation_history:
-                fragment = new HistoryFragment();
+                fragment = new HistoryPedagangFragment();
                 break;
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();

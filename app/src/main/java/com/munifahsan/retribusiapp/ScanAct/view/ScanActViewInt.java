@@ -7,5 +7,7 @@ public interface ScanActViewInt {
     void hideBayar();
     void showSelesai();
     void hideSelesai();
+    void showTopUplay();
+    void hideTopUpLay();
     void navigateToHomePtg();
 }

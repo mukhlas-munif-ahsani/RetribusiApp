@@ -67,6 +67,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                         }
 
+                        if (level.equals("ADMIN")){
+
+                        }
                     } else {
 
                         String errorMessage = task.getException().getMessage();
