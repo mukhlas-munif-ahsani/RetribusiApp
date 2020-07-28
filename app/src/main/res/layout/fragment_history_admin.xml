@@ -110,7 +110,7 @@
             android:src="@drawable/ic_check_circle"
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_label="Bulan Terakhir"
+            app:fab_label="Semua"
             app:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 
