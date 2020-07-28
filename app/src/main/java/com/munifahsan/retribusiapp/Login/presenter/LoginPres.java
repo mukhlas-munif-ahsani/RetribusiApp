@@ -67,7 +67,7 @@ public class LoginPres implements LoginPresInt{
         }
 
         if (level.equals("ADMIN")){
-
+            loginViewInt.navitageToAdmin();
         }
     }
 

@@ -13,6 +13,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.munifahsan.retribusiapp.Login.presenter.LoginPres;
 import com.munifahsan.retribusiapp.Login.presenter.LoginPresInt;
+import com.munifahsan.retribusiapp.MainAdmin.MainAdminActivity;
 import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
 import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 import com.munifahsan.retribusiapp.R;
@@ -95,6 +96,13 @@ public class LoginView extends AppCompatActivity implements LoginViewInt{
         if (loginPresInt.isValidForm(email, pass)){
             loginPresInt.validateLogin(email, pass);
         }
+    }
+
+    @Override
+    public void navitageToAdmin() {
+        Intent intent = new Intent(this, MainAdminActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

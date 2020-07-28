@@ -24,7 +24,11 @@ public class ScanActRepo implements ScanActRepoInt {
 
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
-    public String mNowTime;
+    private String mNowTime;
+    private String mTanggal;
+    private String mBulan;
+    private String mTahun;
+    private String mJam;
 
     private FirebaseAuth mAuth;
     private String current_id;
@@ -279,6 +283,11 @@ public class ScanActRepo implements ScanActRepoInt {
 
     public void addHistory(String idPedagang, int saldo, int potongan, String nama) {
         getNowTime();
+        getTangalTime();
+        getBulanTime();
+        getTahunTime();
+        getTime();
+
         Map<String, Object> historyMap = new HashMap<>();
         historyMap.put("petugas_id", current_id);
         historyMap.put("potongan", potongan);
@@ -286,6 +295,10 @@ public class ScanActRepo implements ScanActRepoInt {
         historyMap.put("pedagang_id", idPedagang);
         historyMap.put("jenis", nama);
         historyMap.put("sisa_saldo", saldo);
+        historyMap.put("tanggal", mTanggal);
+        historyMap.put("bulan", mBulan);
+        historyMap.put("tahun", mTahun);
+        historyMap.put("urutan", mTahun+mBulan+mTanggal+mJam);
 
         firebaseFirestore.collection("HISTORY").document()
                 .set(historyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -305,6 +318,30 @@ public class ScanActRepo implements ScanActRepoInt {
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("EEE, d MMM, yyyy");
         mNowTime = dateFormat.format(calendar.getTime());
+    }
+
+    public void getTangalTime() {
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("d");
+        mTanggal = dateFormat.format(calendar.getTime());
+    }
+
+    public void getBulanTime() {
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("M");
+        mBulan = dateFormat.format(calendar.getTime());
+    }
+
+    public void getTahunTime() {
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("yy");
+        mTahun = dateFormat.format(calendar.getTime());
+    }
+
+    public void getTime() {
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("Hms");
+        mTahun = dateFormat.format(calendar.getTime());
     }
 
     public void postEvent(int type, String message) {

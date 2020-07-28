@@ -79,4 +79,9 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
+
+    //floating button
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
+    implementation 'com.github.clans:fab:1.6.4'
+
 }

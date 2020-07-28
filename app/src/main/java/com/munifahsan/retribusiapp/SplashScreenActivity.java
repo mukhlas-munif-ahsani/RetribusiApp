@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.munifahsan.retribusiapp.Login.view.LoginView;
+import com.munifahsan.retribusiapp.MainAdmin.MainAdminActivity;
 import com.munifahsan.retribusiapp.MainPedagang.MainPedagang;
 import com.munifahsan.retribusiapp.MainPetugas.MainPetugas;
 
@@ -68,7 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         }
 
                         if (level.equals("ADMIN")){
-
+                            navitageToAdmin();
                         }
                     } else {
 
@@ -80,6 +81,12 @@ public class SplashScreenActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    private void navitageToAdmin() {
+        Intent intent = new Intent(this, MainAdminActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void navigateToPetugas() {

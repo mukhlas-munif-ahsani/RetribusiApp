@@ -86,7 +86,7 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
                 }
 
                 if (scanType == 2) {
-                    Toast.makeText(this, "Tipe Scan 2 : " + result.getContents(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, "Tipe Scan 2 : " + result.getContents(), Toast.LENGTH_LONG).show();
                     mIdPedagang.setText(result.getContents());
                     showTopUplay();
                 }
