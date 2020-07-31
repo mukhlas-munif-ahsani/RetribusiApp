@@ -334,14 +334,14 @@ public class ScanActRepo implements ScanActRepoInt {
 
     public void getTahunTime() {
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("yy");
+        dateFormat = new SimpleDateFormat("yyyy");
         mTahun = dateFormat.format(calendar.getTime());
     }
 
     public void getTime() {
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("Hms");
-        mTahun = dateFormat.format(calendar.getTime());
+        dateFormat = new SimpleDateFormat("hhmmss");
+        mJam = dateFormat.format(calendar.getTime());
     }
 
     public void postEvent(int type, String message) {

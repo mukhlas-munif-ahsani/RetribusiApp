@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -131,7 +133,12 @@ public class ScanActActivity extends AppCompatActivity implements ScanActViewInt
     }
 
     public void showMessage(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        View view = toast.getView();
+        view.setBackgroundColor(Color.RED);
+        TextView text = (TextView) view.findViewById(android.R.id.message);
+        text.setTextColor(Color.WHITE);
+        toast.show();
     }
 
     @Override
