@@ -45,6 +45,7 @@ public class ScanActRepo implements ScanActRepoInt {
 
     @Override
     public void proceedTopup(String idPedagang, int nominal) {
+        //usersRef.document(idPedagang).get()
         usersRef.document(idPedagang).collection("INV").document("SALDO")
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -288,30 +289,40 @@ public class ScanActRepo implements ScanActRepoInt {
         getTahunTime();
         getTime();
 
-        Map<String, Object> historyMap = new HashMap<>();
-        historyMap.put("petugas_id", current_id);
-        historyMap.put("potongan", potongan);
-        historyMap.put("created_at", mNowTime);
-        historyMap.put("pedagang_id", idPedagang);
-        historyMap.put("jenis", nama);
-        historyMap.put("sisa_saldo", saldo);
-        historyMap.put("tanggal", mTanggal);
-        historyMap.put("bulan", mBulan);
-        historyMap.put("tahun", mTahun);
-        historyMap.put("urutan", mTahun+mBulan+mTanggal+mJam);
+        usersRef.document(idPedagang).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                ScanActModel model = documentSnapshot.toObject(ScanActModel.class);
+                String namaPedagang = model.getNama();
 
-        firebaseFirestore.collection("HISTORY").document()
-                .set(historyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                postEvent(ScanActEvent.onGetDataSuccess, "Transaksi berhasil");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                postEvent(ScanActEvent.onGetDataError, e.getMessage());
+                Map<String, Object> historyMap = new HashMap<>();
+                historyMap.put("petugas_id", current_id);
+                historyMap.put("potongan", potongan);
+                historyMap.put("created_at", mNowTime);
+                historyMap.put("pedagang_id", idPedagang);
+                historyMap.put("nama_pedagang", namaPedagang);
+                historyMap.put("jenis", nama);
+                historyMap.put("sisa_saldo", saldo);
+                historyMap.put("tanggal", mTanggal);
+                historyMap.put("bulan", mBulan);
+                historyMap.put("tahun", mTahun);
+                historyMap.put("urutan", mTahun+mBulan+mTanggal+mJam);
+
+                firebaseFirestore.collection("HISTORY").document()
+                        .set(historyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        postEvent(ScanActEvent.onGetDataSuccess, "Transaksi berhasil");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        postEvent(ScanActEvent.onGetDataError, e.getMessage());
+                    }
+                });
             }
         });
+
     }
 
     public void getNowTime() {

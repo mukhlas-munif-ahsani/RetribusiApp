@@ -2,6 +2,9 @@ package com.munifahsan.retribusiapp.History;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +22,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +66,10 @@ public class HistoryAdminFragment extends Fragment {
     FloatingActionButton bulan;
     @BindView(R.id.menu_item_semua)
     FloatingActionButton semua;
+    @BindView(R.id.dropDownButton)
+    Button mDdButton;
+    @BindView(R.id.floating_action_button)
+    com.google.android.material.floatingactionbutton.FloatingActionButton mLogOut;
 
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference historyRef = firebaseFirestore.collection("HISTORY");
@@ -68,7 +79,7 @@ public class HistoryAdminFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView mEmptyDataTxt;
     private LinearLayoutManager mLayoutManager;
-    private HistoryAdapter adapter;
+    private HistoryAdminAdapter adapter;
     private FirebaseAuth firebaseAuth;
     private String user_id;
     Query query;
@@ -89,7 +100,7 @@ public class HistoryAdminFragment extends Fragment {
 
         toolbar = view.findViewById(R.id.Toolbar);
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         //toolbar.setElevation(0);
 
         toolbar.setTitle("Daftar Transaksi");
@@ -120,7 +131,7 @@ public class HistoryAdminFragment extends Fragment {
                 .setQuery(query, HistoryModel.class)
                 .build();
 
-        adapter = new HistoryAdapter(options);
+        adapter = new HistoryAdminAdapter(options);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -128,6 +139,80 @@ public class HistoryAdminFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
+        mDdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu filterMenu = new PopupMenu(getContext(), mDdButton);
+                filterMenu.getMenuInflater().inflate(R.menu.filter_dropdown_menu, filterMenu.getMenu());
+                filterMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.semua:
+                                getLastSemua();
+                                mDdButton.setText("Semua");
+                            case R.id.januari:
+                                getJanuari();
+                                mDdButton.setText("Januari");
+                                break;
+                            case R.id.februari:
+                                getFebruari();
+                                mDdButton.setText("Februari");
+                                break;
+                            case R.id.maret:
+                                getMaret();
+                                mDdButton.setText("Maret");
+                                break;
+                            case R.id.april:
+                                getApril();
+                                mDdButton.setText("April");
+                                break;
+                            case R.id.mei:
+                                getMei();
+                                mDdButton.setText("Mei");
+                                break;
+                            case R.id.juni:
+                                getJuni();
+                                mDdButton.setText("Juni");
+                                break;
+                            case R.id.juli:
+                                getJuli();
+                                mDdButton.setText("Juli");
+                                break;
+                            case R.id.agustus:
+                                getAgustus();
+                                mDdButton.setText("Agustus");
+                                break;
+                            case R.id.september:
+                                getSeptember();
+                                mDdButton.setText("September");
+                                break;
+                            case R.id.oktober:
+                                getOktober();
+                                mDdButton.setText("Oktober");
+                                break;
+                            case R.id.november:
+                                getNovember();
+                                mDdButton.setText("November");
+                                break;
+                            case R.id.desember:
+                                getDesember();
+                                mDdButton.setText("Desember");
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                filterMenu.show();
+            }
+        });
+
+        mLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogOnLogOutBtnOnClick();
+            }
+        });
         return view;
     }
 
@@ -208,7 +293,7 @@ public class HistoryAdminFragment extends Fragment {
                 .setQuery(query, HistoryModel.class)
                 .build();
 
-        adapter = new HistoryAdapter(options);
+        adapter = new HistoryAdminAdapter(options);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -240,7 +325,403 @@ public class HistoryAdminFragment extends Fragment {
                 .setQuery(query, HistoryModel.class)
                 .build();
 
-        adapter = new HistoryAdapter(options);
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getJanuari() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "1").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getFebruari() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "2").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getMaret() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "3").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getApril() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "4").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getMei() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "5").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getJuni() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "6").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getJuli() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "7").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getAgustus() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "8").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getSeptember() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "9").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getOktober() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "10").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getNovember() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "11").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+    }
+
+    public void getDesember() {
+        adapter.stopListening();
+
+        //Toast.makeText(getActivity(),"clicked", Toast.LENGTH_LONG).show();
+
+        query = historyRef.whereEqualTo("bulan", "12").orderBy("urutan", Query.Direction.DESCENDING);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.getResult().isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyDataTxt.setVisibility(View.INVISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    mEmptyDataTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        FirestoreRecyclerOptions<HistoryModel> options = new FirestoreRecyclerOptions.Builder<HistoryModel>()
+                .setQuery(query, HistoryModel.class)
+                .build();
+
+        adapter = new HistoryAdminAdapter(options);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -272,7 +753,7 @@ public class HistoryAdminFragment extends Fragment {
                 .setQuery(query, HistoryModel.class)
                 .build();
 
-        adapter = new HistoryAdapter(options);
+        adapter = new HistoryAdminAdapter(options);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);

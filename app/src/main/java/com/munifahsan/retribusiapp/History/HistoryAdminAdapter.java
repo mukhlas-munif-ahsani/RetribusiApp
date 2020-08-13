@@ -15,16 +15,17 @@ import com.munifahsan.retribusiapp.R;
 
 import java.text.DecimalFormat;
 
-public class HistoryAdapter extends FirestoreRecyclerAdapter<HistoryModel, HistoryAdapter.Holder> {
+public class HistoryAdminAdapter extends FirestoreRecyclerAdapter<HistoryModel, HistoryAdminAdapter.Holder> {
 
-    public HistoryAdapter(@NonNull FirestoreRecyclerOptions<HistoryModel> options) {
+    public HistoryAdminAdapter(@NonNull FirestoreRecyclerOptions<HistoryModel> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull HistoryAdapter.Holder holder, int position, @NonNull HistoryModel model) {
+    protected void onBindViewHolder(@NonNull HistoryAdminAdapter.Holder holder, int position, @NonNull HistoryModel model) {
         holder.mJenis.setText(model.getJenis());
         holder.mTime.setText(model.getCreated_at());
+        holder.mNamaPedagang.setText(model.getNama_pedagang());
         //holder.mMoney.setText(String.valueOf(model.getPotongan()));
 
         if (model.getJenis().equals("PAJAK")) {
@@ -46,8 +47,8 @@ public class HistoryAdapter extends FirestoreRecyclerAdapter<HistoryModel, Histo
 
     @NonNull
     @Override
-    public HistoryAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history, parent, false);
+    public HistoryAdminAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history_admin, parent, false);
         return new Holder(view);
     }
 
@@ -55,6 +56,7 @@ public class HistoryAdapter extends FirestoreRecyclerAdapter<HistoryModel, Histo
         private TextView mJenis;
         private TextView mTime;
         private TextView mMoney;
+        private TextView mNamaPedagang;
         private TextView mRp;
         private TextView mMin;
         private TextView mPlus;
@@ -66,6 +68,7 @@ public class HistoryAdapter extends FirestoreRecyclerAdapter<HistoryModel, Histo
             mJenis = itemView.findViewById(R.id.jenisTxt);
             mTime = itemView.findViewById(R.id.timeTxt);
             mMoney = itemView.findViewById(R.id.moneyTxt);
+            mNamaPedagang = itemView.findViewById(R.id.nama_pedagang);
             mRp = itemView.findViewById(R.id.rpTxt);
             mMin = itemView.findViewById(R.id.minTxt);
             mPlus = itemView.findViewById(R.id.plusTxt);

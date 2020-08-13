@@ -5,19 +5,25 @@ public class HistoryModel {
     String jenis;
     String pedagang_id;
     String petugas_id;
+    String nama_pedagang;
     int potongan;
     int sisa_saldo;
 
     public HistoryModel() {
     }
 
-    public HistoryModel(String created_at, String jenis, String pedagang_id, String petugas_id, int potongan, int sisa_saldo) {
+    public HistoryModel(String created_at, String jenis, String pedagang_id, String petugas_id, String nama_pedagang, int potongan, int sisa_saldo) {
         this.created_at = created_at;
         this.jenis = jenis;
         this.pedagang_id = pedagang_id;
         this.petugas_id = petugas_id;
+        this.nama_pedagang = nama_pedagang;
         this.potongan = potongan;
         this.sisa_saldo = sisa_saldo;
+    }
+
+    public String getNama_pedagang() {
+        return nama_pedagang;
     }
 
     public String getCreated_at() {
